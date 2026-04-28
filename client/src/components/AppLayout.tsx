@@ -1,8 +1,9 @@
-import { Flame, LogIn, Radio, ShieldCheck, UsersRound } from 'lucide-react';
+import { LogIn, Radio, ShieldCheck, UsersRound } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useApp } from '../contexts/AppContext';
 import { compactNumber, formatDateTime } from '../lib/time';
+import { BrandMark } from './BrandMark';
 import { CountdownBadge } from './CountdownBadge';
 import { GuestOnboarding } from './GuestOnboarding';
 import { ToastHost } from './ToastHost';
@@ -23,9 +24,7 @@ export function AppLayout() {
       <header className="sticky top-0 z-30 border-b border-white/10 bg-ink/72 backdrop-blur-2xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3">
           <Link to="/" className="flex min-w-0 flex-1 items-center gap-2 text-white">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-ember/30 bg-ember/15 text-ember shadow-[0_0_28px_rgba(255,90,54,0.22)]">
-              <Flame className="h-5 w-5" />
-            </span>
+            <BrandMark className="h-9 w-9 shrink-0" />
             <span className="min-w-0">
               <span className="block truncate text-lg font-semibold leading-5">{site?.siteName ?? 'SebelumTutup'}</span>
               <span className="hidden items-center gap-1 text-[11px] text-slate-500 sm:flex">
@@ -81,8 +80,11 @@ export function AppLayout() {
       <footer className="mt-12 border-t border-white/10 bg-ink/45 px-4 py-8 text-sm text-slate-400 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="font-medium text-slate-200">{site?.siteName ?? 'SebelumTutup'}</p>
-            {site && <p>Website demo ini akan tutup pada {formatDateTime(site.siteCloseAt)}.</p>}
+            <div className="flex items-center gap-2">
+              <BrandMark className="h-8 w-8 shrink-0" />
+              <p className="font-medium text-slate-200">{site?.siteName ?? 'SebelumTutup'}</p>
+            </div>
+            {site && <p className="mt-2">Website demo ini akan tutup pada {formatDateTime(site.siteCloseAt)}.</p>}
           </div>
           <div className="flex flex-wrap gap-3">
             <span className="inline-flex items-center gap-2">
