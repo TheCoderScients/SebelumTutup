@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PostCategory {
+  random
+  curhat
+  opini
+  sekolah
+  game
+  teknologi
+  cinta
+}
+
+enum ReportTargetType {
+  post
+  comment
+}
+
+enum ReportStatus {
+  open
+  resolved
+}
+
+model GuestSession {
+  id          String         @id @default(cuid())
+  nickname    String?
+  isAnonymous Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  lastSeenAt  DateTime       @default(now())
+  posts       Post[]
+  comments    Comment[]
+  reactions   PostReaction[]
+  votes       PostVote[]
+  reports     Report[]       @relation("ReporterReports")
+}
+
+model Post {
+  id             String         @id @default(cuid())
+  guestSessionId String
+  displayName    String?
+  isAnonymous    Boolean        @default(true)
+  title          String
+  body           String
+  category       PostCategory
+  score          Int            @default(0)
+  commentCount   Int            @default(0)
+  reactionCount  Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+  guestSession   GuestSession   @relation(fields: [guestSessionId], references: [id], onDelete: Cascade)
+  comments       Comment[]
+  reactions      PostReaction[]
+  votes          PostVote[]
+
+  @@index([createdAt])
+  @@index([category])
+  @@index([deletedAt])
+  @@index([score])
+}
+
+model Comment {
+  id             String       @id @default(cuid())
+  postId         String
+  guestSessionId String
+  displayName    String?
+  isAnonymous    Boolean      @default(true)
+  body           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+  post           Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  guestSession   GuestSession @relation(fields: [guestSessionId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([createdAt])
+  @@index([deletedAt])
+}
+
+model PostReaction {
+  id             String       @id @default(cuid())
+  postId         String
+  guestSessionId String
+  emoji          String
+  createdAt      DateTime     @default(now())
+  post           Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  guestSession   GuestSession @relation(fields: [guestSessionId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, guestSessionId, emoji])
+  @@index([postId])
+}
+
+model PostVote {
+  id             String       @id @default(cuid())
+  postId         String
+  guestSessionId String
+  value          Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  post           Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  guestSession   GuestSession @relation(fields: [guestSessionId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, guestSessionId])
+  @@index([postId])
+}
+
+model Report {
+  id                     String           @id @default(cuid())
+  targetType             ReportTargetType
+  targetId               String
+  reason                 String
+  reporterGuestSessionId String
+  status                 ReportStatus     @default(open)
+  createdAt              DateTime         @default(now())
+  resolvedAt             DateTime?
+  reporterGuestSession   GuestSession     @relation("ReporterReports", fields: [reporterGuestSessionId], references: [id], onDelete: Cascade)
+
+  @@index([targetType, targetId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model AdminActionLog {
+  id         String   @id @default(cuid())
+  actionType String
+  targetType String
+  targetId   String
+  note       String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actionType])
+}

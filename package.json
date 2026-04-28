@@ -1,0 +1,49 @@
+{
+  "name": "sebelumtutup",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website demo arena opini singkat dan curhat anonim semi-live.",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "install": "node -e \"console.log('Dependencies ready. Gunakan npm install untuk memasang paket.')\"",
+    "dev": "concurrently -n server,client -c cyan,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "dev:local": "concurrently -n db,server,client -c green,cyan,magenta \"npm run db:local:start\" \"NODE_ENV=development PORT=4000 DATABASE_URL=postgresql://sebel:sebel_password@127.0.0.1:55432/sebelumtutup?schema=public CLIENT_ORIGIN=http://localhost:5173 SITE_NAME=SebelumTutup SITE_CLOSE_AT=2026-05-22T23:59:59+07:00 ADMIN_USERNAME=admin ADMIN_PASSWORD=change-me-admin SESSION_SECRET=local-session-secret-32-characters COOKIE_SECRET=local-cookie-secret-32-characters RATE_LIMIT_WINDOW_MS=60000 RATE_LIMIT_MAX_POSTS=20 RATE_LIMIT_MAX_COMMENTS=40 RATE_LIMIT_MAX_REPORTS=20 npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run db:generate && npm run build -w client && npm run build -w server",
+    "start": "npm run start -w server",
+    "lint": "npm run lint -w client && npm run lint -w server",
+    "typecheck": "npm run typecheck -w client && npm run typecheck -w server",
+    "test": "npm run test -w server",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:local:start": "tsx scripts/dev-db.ts",
+    "db:local:prepare": "tsx scripts/prepare-local-db.ts",
+    "smoke:e2e": "tsx scripts/smoke-e2e.ts",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down"
+  },
+  "dependencies": {
+    "@prisma/debug": "https://registry.npmjs.org/@prisma/debug/-/debug-5.22.0.tgz",
+    "@prisma/engines": "https://registry.npmjs.org/@prisma/engines/-/engines-5.22.0.tgz",
+    "@prisma/engines-version": "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2.tgz",
+    "@prisma/fetch-engine": "https://registry.npmjs.org/@prisma/fetch-engine/-/fetch-engine-5.22.0.tgz",
+    "@prisma/get-platform": "https://registry.npmjs.org/@prisma/get-platform/-/get-platform-5.22.0.tgz",
+    "prisma": "https://registry.npmjs.org/prisma/-/prisma-5.22.0.tgz"
+  },
+  "devDependencies": {
+    "concurrently": "8.2.2",
+    "embedded-postgres": "18.3.0-beta.17",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}
