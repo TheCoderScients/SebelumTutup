@@ -101,7 +101,7 @@ export function AdminPage() {
   if (!authenticated) {
     return (
       <section className="mx-auto grid min-h-[70vh] max-w-md place-items-center px-4 py-8">
-        <form onSubmit={login} className="w-full rounded-lg border border-white/10 bg-panel p-6 shadow-glow">
+        <form onSubmit={login} className="surface-card w-full p-6">
           <div className="flex items-center gap-3">
             <span className="grid h-11 w-11 place-items-center rounded-lg bg-aqua text-ink">
               <Shield className="h-5 w-5" />
@@ -117,7 +117,7 @@ export function AdminPage() {
             <input
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="mt-2 w-full rounded-lg border border-white/10 bg-ink px-4 py-3 text-white outline-none focus:border-aqua"
+              className="field mt-2 w-full focus:border-aqua"
             />
           </label>
           <label className="mt-4 block text-sm text-slate-200">
@@ -126,13 +126,13 @@ export function AdminPage() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               type="password"
-              className="mt-2 w-full rounded-lg border border-white/10 bg-ink px-4 py-3 text-white outline-none focus:border-aqua"
+              className="field mt-2 w-full focus:border-aqua"
             />
           </label>
           <button
             type="submit"
             disabled={submitting}
-            className="mt-6 w-full rounded-lg bg-aqua px-4 py-3 text-sm font-semibold text-ink transition hover:bg-aqua/90 disabled:opacity-60"
+            className="primary-button mt-6 w-full bg-aqua py-3 hover:bg-aqua/90"
           >
             {submitting ? 'Masuk...' : 'Login'}
           </button>
@@ -152,7 +152,7 @@ export function AdminPage() {
           <button
             type="button"
             onClick={loadAdmin}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/10"
+            className="icon-button"
             title="Refresh admin"
           >
             <RefreshCw className="h-4 w-4" />
@@ -161,7 +161,7 @@ export function AdminPage() {
           <button
             type="button"
             onClick={logout}
-            className="inline-flex items-center gap-2 rounded-lg border border-ember/30 px-3 py-2 text-sm text-ember transition hover:bg-ember/10"
+            className="inline-flex items-center gap-2 rounded-lg border border-ember/30 bg-ember/5 px-3 py-2 text-sm text-ember transition hover:bg-ember/10"
             title="Logout"
           >
             <LogOut className="h-4 w-4" />
@@ -173,7 +173,7 @@ export function AdminPage() {
       {stats && (
         <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7">
           {Object.entries(stats.stats).map(([key, value]) => (
-            <div key={key} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
+            <div key={key} className="soft-card p-4">
               <p className="text-2xl font-semibold text-white">{value}</p>
               <p className="mt-1 text-xs text-slate-400">{key}</p>
             </div>
@@ -182,7 +182,7 @@ export function AdminPage() {
       )}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
-        <section className="rounded-lg border border-white/10 bg-panel p-5">
+        <section className="surface-card p-5">
           <h2 className="text-xl font-semibold text-white">Report terbuka</h2>
           <div className="mt-4 grid gap-3">
             {reports.length === 0 ? (
@@ -191,7 +191,7 @@ export function AdminPage() {
               </div>
             ) : (
               reports.map((report) => (
-                <article key={report.id} className="rounded-lg border border-white/10 bg-ink/70 p-4">
+                <article key={report.id} className="rounded-lg border border-white/10 bg-ink/70 p-4 transition hover:border-white/20">
                   <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                     <div>
                       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
@@ -226,7 +226,7 @@ export function AdminPage() {
           </div>
         </section>
 
-        <section className="rounded-lg border border-white/10 bg-panel p-5">
+        <section className="surface-card p-5">
           <h2 className="text-xl font-semibold text-white">Log moderasi</h2>
           <div className="mt-4 grid gap-3">
             {stats?.logs.length ? (

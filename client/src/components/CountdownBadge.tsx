@@ -12,7 +12,7 @@ export function CountdownBadge({ closeAt, compact = false }: { closeAt: string; 
 
   if (parts.done) {
     return (
-      <span className="inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember/10 px-3 py-1 text-sm text-ember">
+      <span className="inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember/10 px-3 py-1.5 text-sm text-ember">
         <Clock3 className="h-4 w-4" />
         Demo sudah ditutup
       </span>
@@ -24,7 +24,7 @@ export function CountdownBadge({ closeAt, compact = false }: { closeAt: string; 
     : `${parts.days} hari ${parts.hours} jam ${parts.minutes} menit ${parts.seconds} detik`;
 
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-aqua/30 bg-aqua/10 px-3 py-1 text-sm text-aqua">
+    <span className="inline-flex items-center gap-2 rounded-full border border-aqua/30 bg-aqua/10 px-3 py-1.5 text-sm text-aqua shadow-[0_0_26px_rgba(70,180,255,0.12)]">
       <Clock3 className="h-4 w-4" />
       {text}
     </span>

@@ -1,4 +1,4 @@
-import { ArrowLeft, Flame, MessageCircle, SendHorizonal, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { ArrowLeft, MessageCircle, SendHorizonal, Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { EmptyState } from '../components/EmptyState';
@@ -188,18 +188,19 @@ export function PostDetailPage() {
         Kembali ke feed
       </Link>
 
-      <article className="mt-5 rounded-lg border border-white/10 bg-panel p-5 shadow-glow md:p-7">
+      <article className="surface-card relative mt-5 overflow-hidden p-5 md:p-7">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-ember/60 via-mint/60 to-aqua/60" />
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2 text-sm text-slate-400">
             <span className="rounded-full border border-mint/25 bg-mint/10 px-3 py-1 text-xs text-mint">{post.category}</span>
-            <span>oleh {post.displayName}</span>
+            <span className="rounded-full bg-white/[0.04] px-3 py-1 text-xs">oleh {post.displayName}</span>
             <span>•</span>
             <span>{relativeTime(post.createdAt)}</span>
           </div>
           <ReportButton targetType="post" targetId={post.id} />
         </div>
 
-        <h1 className="mt-4 text-3xl font-bold leading-tight text-white md:text-4xl">{post.title}</h1>
+        <h1 className="mt-5 text-3xl font-bold leading-tight text-white md:text-4xl">{post.title}</h1>
         <p className="mt-4 whitespace-pre-wrap text-base leading-8 text-slate-200">{post.body}</p>
         <p className="mt-4 text-xs text-slate-500">Dibuat {formatDateTime(post.createdAt)}</p>
 
@@ -216,7 +217,7 @@ export function PostDetailPage() {
             <ThumbsUp className="h-4 w-4" />
             Upvote
           </button>
-          <span className="rounded-lg bg-white/5 px-3 py-2 text-sm font-semibold text-white">Skor {post.score}</span>
+          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm font-semibold text-white">Skor {post.score}</span>
           <button
             type="button"
             onClick={() => vote(-1)}
@@ -231,6 +232,9 @@ export function PostDetailPage() {
           </button>
 
           <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-sm text-slate-500">
+              <Sparkles className="h-4 w-4 text-honey" />
+            </span>
             {reactions.map((emoji) => {
               const active = post.myReactions.includes(emoji);
               return (
@@ -251,7 +255,7 @@ export function PostDetailPage() {
         </div>
       </article>
 
-      <section className="mt-6 rounded-lg border border-white/10 bg-panel p-5">
+      <section className="surface-card mt-6 p-5">
         <div className="flex items-center gap-2 text-white">
           <MessageCircle className="h-5 w-5 text-aqua" />
           <h2 className="text-xl font-semibold">Komentar ({post.comments.length})</h2>
@@ -266,14 +270,14 @@ export function PostDetailPage() {
               disabled={readOnly}
               rows={3}
               placeholder="Tambahkan komentar singkat..."
-              className="min-h-24 flex-1 resize-none rounded-lg border border-white/10 bg-ink px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-aqua disabled:opacity-60"
+              className="field min-h-24 flex-1 resize-none text-sm focus:border-aqua"
             />
             <div className="flex w-full flex-col gap-3 md:w-44">
               <select
                 value={displayMode}
                 onChange={(event) => setDisplayMode(event.target.value as 'nickname' | 'anonymous')}
                 disabled={readOnly || !guest?.nickname}
-                className="rounded-lg border border-white/10 bg-ink px-3 py-2 text-sm text-slate-200 outline-none focus:border-aqua disabled:opacity-60"
+                className="field px-3 py-2 text-sm text-slate-200 focus:border-aqua"
               >
                 <option value="nickname">Nickname</option>
                 <option value="anonymous">Anonim</option>
@@ -281,7 +285,7 @@ export function PostDetailPage() {
               <button
                 type="submit"
                 disabled={readOnly || submitting}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-aqua px-4 py-3 text-sm font-semibold text-ink transition hover:bg-aqua/90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="primary-button bg-aqua py-3 hover:bg-aqua/90"
               >
                 <SendHorizonal className="h-4 w-4" />
                 {readOnly ? 'Ditutup' : submitting ? 'Mengirim...' : 'Kirim'}
@@ -295,9 +299,12 @@ export function PostDetailPage() {
             <EmptyState title="Belum ada komentar" body="Komentar pertama akan muncul realtime di sini." />
           ) : (
             post.comments.map((item) => (
-              <div key={item.id} className="rounded-lg border border-white/10 bg-ink/70 p-4">
+              <div key={item.id} className="rounded-lg border border-white/10 bg-ink/70 p-4 transition hover:border-white/20">
                 <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-                  <span className="font-medium text-slate-200">{item.displayName}</span>
+                  <span className="inline-flex items-center gap-2 font-medium text-slate-200">
+                    <span className="h-2 w-2 rounded-full bg-aqua" />
+                    {item.displayName}
+                  </span>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-slate-500">{relativeTime(item.createdAt)}</span>
                     <ReportButton targetType="comment" targetId={item.id} label="" />

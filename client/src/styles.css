@@ -5,7 +5,7 @@
 :root {
   color-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  background: #111318;
+  background: #0d1016;
 }
 
 * {
@@ -15,7 +15,10 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: #111318;
+  background:
+    radial-gradient(circle at 20% -10%, rgba(255, 90, 54, 0.14), transparent 30rem),
+    radial-gradient(circle at 88% 8%, rgba(70, 180, 255, 0.14), transparent 28rem),
+    #0d1016;
 }
 
 button,
@@ -35,4 +38,95 @@ button:disabled {
 
 ::selection {
   background: rgba(68, 214, 168, 0.35);
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-lg border border-white/10 bg-panel/90 shadow-lift backdrop-blur-xl;
+  }
+
+  .soft-card {
+    @apply rounded-lg border border-white/10 bg-white/[0.045] backdrop-blur-xl;
+  }
+
+  .field {
+    @apply rounded-lg border border-white/10 bg-ink/90 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-mint focus:bg-ink disabled:opacity-60;
+  }
+
+  .icon-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-slate-200 transition hover:border-white/25 hover:bg-white/[0.08];
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .ghost-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-white/25 hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .live-dot {
+    @apply relative inline-flex h-2.5 w-2.5 rounded-full bg-mint;
+  }
+
+  .live-dot::after {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-mint/70;
+    animation: ping-soft 1.7s ease-out infinite;
+  }
+
+  .ambient-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 38px 38px;
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  }
+
+  .grain {
+    background-image:
+      radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
+      radial-gradient(circle at 75% 65%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px);
+    background-size: 34px 34px, 42px 42px;
+    opacity: 0.22;
+  }
+
+  .stream-rail {
+    background: linear-gradient(180deg, transparent, rgba(68, 214, 168, 0.5), transparent);
+    animation: stream-slide 5.5s linear infinite;
+  }
+
+  .floating-card {
+    animation: float-card 7s ease-in-out infinite;
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.72;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes stream-slide {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

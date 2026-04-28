@@ -1,4 +1,4 @@
-import { RefreshCw } from 'lucide-react';
+import { Filter, RefreshCw, Sparkles, Zap } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { EmptyState } from '../components/EmptyState';
@@ -87,23 +87,38 @@ export function FeedPage() {
       </aside>
 
       <div>
-        <div className="mb-5 flex flex-col gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-white">{sort === 'trending' ? 'Trending' : 'Feed publik'}</h1>
-            <p className="mt-1 text-sm text-slate-400">Post baru, komentar, vote, dan reaksi ikut masuk realtime.</p>
+        <div className="surface-card mb-5 overflow-hidden p-0">
+          <div className="flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="inline-flex items-center gap-2 text-xs font-medium text-mint">
+                <span className="live-dot h-2 w-2" />
+                feed publik
+              </p>
+              <h1 className="mt-2 text-3xl font-bold text-white">{sort === 'trending' ? 'Trending sekarang' : 'Arena terbaru'}</h1>
+              <p className="mt-1 text-sm leading-6 text-slate-400">Post baru, komentar, vote, dan reaksi ikut masuk realtime.</p>
+            </div>
+            <button type="button" onClick={() => loadPosts(1, false)} className="ghost-button" title="Refresh feed">
+              <RefreshCw className="h-4 w-4" />
+              Refresh
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => loadPosts(1, false)}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/10"
-            title="Refresh feed"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Refresh
-          </button>
+          <div className="grid grid-cols-1 border-t border-white/10 text-xs text-slate-400 sm:grid-cols-3">
+            <span className="flex items-center gap-2 px-5 py-3">
+              <Zap className="h-4 w-4 text-honey" />
+              live update
+            </span>
+            <span className="flex items-center gap-2 border-y border-white/10 px-5 py-3 sm:border-x sm:border-y-0">
+              <Sparkles className="h-4 w-4 text-violet" />
+              guest mode
+            </span>
+            <span className="flex items-center gap-2 px-5 py-3">
+              <Filter className="h-4 w-4 text-aqua" />
+              filter cepat
+            </span>
+          </div>
         </div>
 
-        <div className="mb-5 flex flex-col gap-3">
+        <div className="soft-card mb-5 flex flex-col gap-3 p-4">
           <div className="flex flex-wrap gap-2">
             {sortOptions.map((item) => (
               <button
@@ -113,7 +128,7 @@ export function FeedPage() {
                 className={`rounded-full border px-3 py-1.5 text-sm transition ${
                   sort === item.value
                     ? 'border-white bg-white text-ink'
-                    : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25'
+                    : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:bg-white/[0.08]'
                 }`}
               >
                 {item.label}
@@ -126,7 +141,9 @@ export function FeedPage() {
               type="button"
               onClick={() => setCategory('')}
               className={`rounded-full border px-3 py-1.5 text-xs transition ${
-                !category ? 'border-mint bg-mint/10 text-mint' : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25'
+                !category
+                  ? 'border-mint bg-mint/10 text-mint'
+                  : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:bg-white/[0.08]'
               }`}
             >
               Semua
@@ -139,7 +156,7 @@ export function FeedPage() {
                 className={`rounded-full border px-3 py-1.5 text-xs transition ${
                   category === item.value
                     ? 'border-mint bg-mint/10 text-mint'
-                    : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25'
+                    : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:bg-white/[0.08]'
                 }`}
               >
                 {item.label}

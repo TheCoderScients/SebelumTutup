@@ -1,4 +1,4 @@
-import { SendHorizonal } from 'lucide-react';
+import { EyeOff, PenLine, SendHorizonal, UserRound } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import { useApp } from '../contexts/AppContext';
 import { apiFetch } from '../lib/api';
@@ -42,17 +42,26 @@ export function PostComposer({ onCreated }: { onCreated: (post: PostCard) => voi
   }
 
   return (
-    <form onSubmit={submit} className="rounded-lg border border-white/10 bg-panel p-5 shadow-glow">
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-        <div>
-          <h2 className="text-xl font-semibold text-white">Lempar opini singkat</h2>
-          <p className="mt-1 text-sm text-slate-400">Maksimal 80 karakter judul dan 500 karakter isi.</p>
+    <form onSubmit={submit} className="surface-card overflow-hidden p-0">
+      <div className="border-b border-white/10 bg-white/[0.03] px-5 py-4">
+        <div className="flex items-center gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-lg border border-mint/25 bg-mint/10 text-mint">
+            <PenLine className="h-5 w-5" />
+          </span>
+          <div>
+            <h2 className="text-xl font-semibold text-white">Lempar opini singkat</h2>
+            <p className="mt-1 text-sm text-slate-400">Maksimal 80 karakter judul dan 500 karakter isi.</p>
+          </div>
         </div>
+      </div>
+
+      <div className="p-5">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <select
           value={displayMode}
           onChange={(event) => setDisplayMode(event.target.value as 'nickname' | 'anonymous')}
           disabled={readOnly || !guest?.nickname}
-          className="rounded-lg border border-white/10 bg-ink px-3 py-2 text-sm text-slate-200 outline-none focus:border-mint disabled:opacity-60"
+          className="field py-2 text-sm text-slate-200"
         >
           <option value="nickname">Tampil nickname</option>
           <option value="anonymous">Tampil anonim</option>
@@ -65,7 +74,7 @@ export function PostComposer({ onCreated }: { onCreated: (post: PostCard) => voi
         maxLength={80}
         disabled={readOnly}
         placeholder="Judul hot take kamu"
-        className="mt-5 w-full rounded-lg border border-white/10 bg-ink px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-mint disabled:opacity-60"
+        className="field mt-5 w-full"
       />
       <textarea
         value={body}
@@ -74,7 +83,7 @@ export function PostComposer({ onCreated }: { onCreated: (post: PostCard) => voi
         disabled={readOnly}
         rows={5}
         placeholder="Tulis curhat, opini random, atau hal yang perlu keluar sebelum situs ini tutup..."
-        className="mt-3 w-full resize-none rounded-lg border border-white/10 bg-ink px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-mint disabled:opacity-60"
+        className="field mt-3 w-full resize-none"
       />
 
       <div className="mt-3 flex flex-wrap gap-2">
@@ -84,29 +93,32 @@ export function PostComposer({ onCreated }: { onCreated: (post: PostCard) => voi
             type="button"
             onClick={() => setCategory(item.value)}
             disabled={readOnly}
-            className={`rounded-full border px-3 py-1.5 text-xs transition ${
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition ${
               category === item.value
                 ? 'border-mint bg-mint/10 text-mint'
                 : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25'
             } disabled:opacity-60`}
           >
+            <span className="h-1.5 w-1.5 rounded-full bg-current" />
             {item.label}
           </button>
         ))}
       </div>
 
       <div className="mt-5 flex items-center justify-between gap-3">
-        <p className="text-xs text-slate-500">
+        <p className="flex items-center gap-2 text-xs text-slate-500">
+          {displayMode === 'anonymous' ? <EyeOff className="h-3.5 w-3.5" /> : <UserRound className="h-3.5 w-3.5" />}
           {title.length}/80 judul · {body.length}/500 isi
         </p>
         <button
           type="submit"
           disabled={readOnly || submitting}
-          className="inline-flex items-center gap-2 rounded-lg bg-mint px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-mint/90 disabled:cursor-not-allowed disabled:opacity-60"
+          className="primary-button bg-mint hover:bg-mint/90"
         >
           <SendHorizonal className="h-4 w-4" />
           {readOnly ? 'Ditutup' : submitting ? 'Mengirim...' : 'Kirim'}
         </button>
+      </div>
       </div>
     </form>
   );
