@@ -15,6 +15,7 @@
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 20% -10%, rgba(255, 90, 54, 0.14), transparent 30rem),
     radial-gradient(circle at 88% 8%, rgba(70, 180, 255, 0.14), transparent 28rem),
@@ -34,6 +35,13 @@ button {
 
 button:disabled {
   cursor: not-allowed;
+}
+
+input,
+textarea,
+select,
+button {
+  min-width: 0;
 }
 
 ::selection {
@@ -128,5 +136,31 @@ button:disabled {
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 640px) {
+  .floating-card {
+    animation: none;
+  }
+
+  .stream-rail {
+    display: none;
+  }
+
+  .surface-card,
+  .soft-card {
+    backdrop-filter: blur(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
   }
 }

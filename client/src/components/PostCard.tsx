@@ -17,7 +17,7 @@ const categoryTone: Record<string, string> = {
 
 export function PostCard({ post }: { post: PostCardType }) {
   return (
-    <article className="group surface-card relative overflow-hidden p-5 transition hover:-translate-y-0.5 hover:border-white/20">
+    <article className="group surface-card relative overflow-hidden p-4 transition hover:-translate-y-0.5 hover:border-white/20 sm:p-5">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-mint/50 to-transparent opacity-0 transition group-hover:opacity-100" />
       <Link to={`/post/${post.id}`} className="block">
         <div className="flex flex-wrap items-center gap-2">
@@ -29,14 +29,14 @@ export function PostCard({ post }: { post: PostCardType }) {
           <span className="text-xs text-slate-500">{relativeTime(post.createdAt)}</span>
         </div>
 
-        <h2 className="mt-4 line-clamp-2 text-xl font-semibold leading-snug text-white transition group-hover:text-mint">
+        <h2 className="mt-4 line-clamp-2 text-lg font-semibold leading-snug text-white transition group-hover:text-mint sm:text-xl">
           {post.title}
         </h2>
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-300">{post.body}</p>
       </Link>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-        <div className="flex flex-wrap items-center gap-3 text-sm text-slate-400">
+      <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-400 sm:gap-3">
           <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/[0.04] px-2.5 py-1.5" title="Skor vote">
             <TrendingUp className="h-4 w-4 text-mint" />
             {compactNumber(post.score)}
@@ -51,7 +51,7 @@ export function PostCard({ post }: { post: PostCardType }) {
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           {reactions.map((emoji) => (
             <span key={emoji} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-1 text-xs text-slate-300">
               {emoji} {post.reactions[emoji] ?? 0}

@@ -21,8 +21,8 @@ export function AppLayout() {
       </div>
 
       <header className="sticky top-0 z-30 border-b border-white/10 bg-ink/72 backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-          <Link to="/" className="flex min-w-0 items-center gap-2 text-white">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3">
+          <Link to="/" className="flex min-w-0 flex-1 items-center gap-2 text-white">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-ember/30 bg-ember/15 text-ember shadow-[0_0_28px_rgba(255,90,54,0.22)]">
               <Flame className="h-5 w-5" />
             </span>
@@ -41,7 +41,7 @@ export function AppLayout() {
             <NavItem to="/admin">Admin</NavItem>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <span className="hidden items-center gap-2 rounded-full border border-mint/20 bg-mint/10 px-3 py-1.5 text-xs text-mint lg:inline-flex">
               <Radio className="h-3.5 w-3.5" />
               {compactNumber(site?.stats.onlineUsers ?? 0)} online
@@ -60,7 +60,7 @@ export function AppLayout() {
         </div>
 
         <div className="border-t border-white/5 bg-ink/45 md:hidden">
-          <div className="mx-auto flex max-w-6xl items-center justify-around px-4 py-2 text-sm">
+          <div className="mx-auto flex max-w-6xl items-center justify-around px-2 py-2 text-sm">
             <NavItem to="/feed">Feed</NavItem>
             <NavItem to="/feed?sort=trending">Trending</NavItem>
             <NavItem to="/admin">Admin</NavItem>

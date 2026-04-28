@@ -31,15 +31,15 @@ export function GuestOnboarding() {
   }
 
   return (
-    <div className="fixed inset-0 z-40 grid place-items-center bg-ink/80 px-4 backdrop-blur-md">
-      <form onSubmit={submit} className="w-full max-w-md rounded-lg border border-white/10 bg-panel p-6 shadow-glow">
+    <div className="fixed inset-0 z-40 grid place-items-center overflow-y-auto bg-ink/80 px-3 py-6 backdrop-blur-md sm:px-4">
+      <form onSubmit={submit} className="surface-card w-full max-w-md p-5 sm:p-6">
         <p className="text-sm text-aqua">Masuk sebagai guest</p>
         <h2 className="mt-2 text-2xl font-semibold text-white">Pilih wajah publikmu dulu.</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
           Kamu bisa tampil pakai nickname atau tetap anonim. Tidak ada email, tidak ada akun penuh.
         </p>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="mt-5 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
           <button
             type="button"
             onClick={() => setMode('nickname')}
@@ -74,7 +74,7 @@ export function GuestOnboarding() {
               onChange={(event) => setNickname(event.target.value.slice(0, 30))}
               maxLength={30}
               placeholder="contoh: KopiDingin"
-              className="mt-2 w-full rounded-lg border border-white/10 bg-ink px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-mint"
+              className="field mt-2 w-full"
             />
           </label>
         )}

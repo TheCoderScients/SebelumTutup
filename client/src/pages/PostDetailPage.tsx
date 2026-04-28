@@ -182,13 +182,13 @@ export function PostDetailPage() {
   }
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-8">
+    <section className="mx-auto max-w-4xl px-3 py-5 sm:px-4 sm:py-8">
       <Link to="/feed" className="inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white">
         <ArrowLeft className="h-4 w-4" />
         Kembali ke feed
       </Link>
 
-      <article className="surface-card relative mt-5 overflow-hidden p-5 md:p-7">
+      <article className="surface-card relative mt-5 overflow-hidden p-4 sm:p-5 md:p-7">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-ember/60 via-mint/60 to-aqua/60" />
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2 text-sm text-slate-400">
@@ -200,16 +200,16 @@ export function PostDetailPage() {
           <ReportButton targetType="post" targetId={post.id} />
         </div>
 
-        <h1 className="mt-5 text-3xl font-bold leading-tight text-white md:text-4xl">{post.title}</h1>
-        <p className="mt-4 whitespace-pre-wrap text-base leading-8 text-slate-200">{post.body}</p>
+        <h1 className="mt-5 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">{post.title}</h1>
+        <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-slate-200 sm:text-base sm:leading-8">{post.body}</p>
         <p className="mt-4 text-xs text-slate-500">Dibuat {formatDateTime(post.createdAt)}</p>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-white/10 pt-5">
+        <div className="mt-6 grid gap-3 border-t border-white/10 pt-5 sm:flex sm:flex-wrap sm:items-center">
           <button
             type="button"
             onClick={() => vote(1)}
             disabled={readOnly}
-            className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition ${
+            className={`inline-flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition sm:w-auto ${
               post.myVote === 1 ? 'border-mint bg-mint/10 text-mint' : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'
             } disabled:opacity-60`}
             title="Upvote"
@@ -217,12 +217,12 @@ export function PostDetailPage() {
             <ThumbsUp className="h-4 w-4" />
             Upvote
           </button>
-          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm font-semibold text-white">Skor {post.score}</span>
+          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-center text-sm font-semibold text-white">Skor {post.score}</span>
           <button
             type="button"
             onClick={() => vote(-1)}
             disabled={readOnly}
-            className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition ${
+            className={`inline-flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition sm:w-auto ${
               post.myVote === -1 ? 'border-ember bg-ember/10 text-ember' : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'
             } disabled:opacity-60`}
             title="Downvote"
@@ -255,7 +255,7 @@ export function PostDetailPage() {
         </div>
       </article>
 
-      <section className="surface-card mt-6 p-5">
+      <section className="surface-card mt-6 p-4 sm:p-5">
         <div className="flex items-center gap-2 text-white">
           <MessageCircle className="h-5 w-5 text-aqua" />
           <h2 className="text-xl font-semibold">Komentar ({post.comments.length})</h2>
@@ -285,7 +285,7 @@ export function PostDetailPage() {
               <button
                 type="submit"
                 disabled={readOnly || submitting}
-                className="primary-button bg-aqua py-3 hover:bg-aqua/90"
+                className="primary-button w-full bg-aqua py-3 hover:bg-aqua/90"
               >
                 <SendHorizonal className="h-4 w-4" />
                 {readOnly ? 'Ditutup' : submitting ? 'Mengirim...' : 'Kirim'}

@@ -92,7 +92,7 @@ export function AdminPage() {
 
   if (loading) {
     return (
-      <section className="mx-auto max-w-6xl px-4 py-8">
+      <section className="mx-auto max-w-6xl px-3 py-5 sm:px-4 sm:py-8">
         <div className="h-96 animate-pulse rounded-lg border border-white/10 bg-white/[0.04]" />
       </section>
     );
@@ -100,8 +100,8 @@ export function AdminPage() {
 
   if (!authenticated) {
     return (
-      <section className="mx-auto grid min-h-[70vh] max-w-md place-items-center px-4 py-8">
-        <form onSubmit={login} className="surface-card w-full p-6">
+      <section className="mx-auto grid min-h-[70vh] max-w-md place-items-center px-3 py-6 sm:px-4 sm:py-8">
+        <form onSubmit={login} className="surface-card w-full p-5 sm:p-6">
           <div className="flex items-center gap-3">
             <span className="grid h-11 w-11 place-items-center rounded-lg bg-aqua text-ink">
               <Shield className="h-5 w-5" />
@@ -142,13 +142,13 @@ export function AdminPage() {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8">
+    <section className="mx-auto max-w-6xl px-3 py-5 sm:px-4 sm:py-8">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white">Admin panel</h1>
+          <h1 className="text-2xl font-bold text-white sm:text-3xl">Admin panel</h1>
           <p className="mt-1 text-sm text-slate-400">Report terbuka, statistik, dan log moderasi.</p>
         </div>
-        <div className="flex gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:flex">
           <button
             type="button"
             onClick={loadAdmin}
@@ -171,7 +171,7 @@ export function AdminPage() {
       </div>
 
       {stats && (
-        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7">
+        <div className="mt-6 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4 lg:grid-cols-7">
           {Object.entries(stats.stats).map(([key, value]) => (
             <div key={key} className="soft-card p-4">
               <p className="text-2xl font-semibold text-white">{value}</p>
@@ -181,8 +181,8 @@ export function AdminPage() {
         </div>
       )}
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
-        <section className="surface-card p-5">
+      <div className="mt-6 grid gap-5 sm:mt-8 lg:grid-cols-[1fr_360px] lg:gap-6">
+        <section className="surface-card p-4 sm:p-5">
           <h2 className="text-xl font-semibold text-white">Report terbuka</h2>
           <div className="mt-4 grid gap-3">
             {reports.length === 0 ? (
@@ -201,11 +201,11 @@ export function AdminPage() {
                       <p className="mt-3 text-sm font-medium text-white">Alasan: {report.reason}</p>
                       <TargetPreview report={report} />
                     </div>
-                    <div className="flex shrink-0 gap-2">
+                    <div className="grid shrink-0 grid-cols-2 gap-2 md:flex">
                       <button
                         type="button"
                         onClick={() => deleteTarget(report)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-ember px-3 py-2 text-sm font-semibold text-white transition hover:bg-ember/90"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-ember px-3 py-2 text-sm font-semibold text-white transition hover:bg-ember/90"
                       >
                         <Trash2 className="h-4 w-4" />
                         Hapus
@@ -213,7 +213,7 @@ export function AdminPage() {
                       <button
                         type="button"
                         onClick={() => resolveReport(report)}
-                        className="inline-flex items-center gap-2 rounded-lg border border-mint/30 px-3 py-2 text-sm font-semibold text-mint transition hover:bg-mint/10"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-mint/30 px-3 py-2 text-sm font-semibold text-mint transition hover:bg-mint/10"
                       >
                         <CheckCircle2 className="h-4 w-4" />
                         Resolve
@@ -226,7 +226,7 @@ export function AdminPage() {
           </div>
         </section>
 
-        <section className="surface-card p-5">
+        <section className="surface-card p-4 sm:p-5">
           <h2 className="text-xl font-semibold text-white">Log moderasi</h2>
           <div className="mt-4 grid gap-3">
             {stats?.logs.length ? (

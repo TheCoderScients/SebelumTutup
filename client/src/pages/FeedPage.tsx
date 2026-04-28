@@ -81,23 +81,23 @@ export function FeedPage() {
   }
 
   return (
-    <section className="mx-auto grid max-w-6xl gap-6 px-4 py-8 lg:grid-cols-[380px_1fr]">
+    <section className="mx-auto grid max-w-6xl gap-5 px-3 py-5 sm:px-4 sm:py-8 lg:grid-cols-[360px_1fr] xl:grid-cols-[380px_1fr]">
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <PostComposer onCreated={mergeCreated} />
       </aside>
 
       <div>
         <div className="surface-card mb-5 overflow-hidden p-0">
-          <div className="flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-4 p-4 sm:p-5 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="inline-flex items-center gap-2 text-xs font-medium text-mint">
                 <span className="live-dot h-2 w-2" />
                 feed publik
               </p>
-              <h1 className="mt-2 text-3xl font-bold text-white">{sort === 'trending' ? 'Trending sekarang' : 'Arena terbaru'}</h1>
+              <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">{sort === 'trending' ? 'Trending sekarang' : 'Arena terbaru'}</h1>
               <p className="mt-1 text-sm leading-6 text-slate-400">Post baru, komentar, vote, dan reaksi ikut masuk realtime.</p>
             </div>
-            <button type="button" onClick={() => loadPosts(1, false)} className="ghost-button" title="Refresh feed">
+            <button type="button" onClick={() => loadPosts(1, false)} className="ghost-button w-full sm:w-auto" title="Refresh feed">
               <RefreshCw className="h-4 w-4" />
               Refresh
             </button>
@@ -118,14 +118,14 @@ export function FeedPage() {
           </div>
         </div>
 
-        <div className="soft-card mb-5 flex flex-col gap-3 p-4">
-          <div className="flex flex-wrap gap-2">
+        <div className="soft-card mb-5 flex flex-col gap-3 overflow-hidden p-0">
+          <div className="flex gap-2 overflow-x-auto px-4 pb-1 pt-4 sm:flex-wrap sm:overflow-visible sm:pb-0">
             {sortOptions.map((item) => (
               <button
                 key={item.value}
                 type="button"
                 onClick={() => setSort(item.value)}
-                className={`rounded-full border px-3 py-1.5 text-sm transition ${
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-sm transition ${
                   sort === item.value
                     ? 'border-white bg-white text-ink'
                     : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:bg-white/[0.08]'
@@ -136,11 +136,11 @@ export function FeedPage() {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2 overflow-x-auto px-4 pb-4 sm:flex-wrap sm:overflow-visible">
             <button
               type="button"
               onClick={() => setCategory('')}
-              className={`rounded-full border px-3 py-1.5 text-xs transition ${
+              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs transition ${
                 !category
                   ? 'border-mint bg-mint/10 text-mint'
                   : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:bg-white/[0.08]'
@@ -153,7 +153,7 @@ export function FeedPage() {
                 key={item.value}
                 type="button"
                 onClick={() => setCategory(item.value)}
-                className={`rounded-full border px-3 py-1.5 text-xs transition ${
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs transition ${
                   category === item.value
                     ? 'border-mint bg-mint/10 text-mint'
                     : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:bg-white/[0.08]'
@@ -186,7 +186,7 @@ export function FeedPage() {
             <button
               type="button"
               onClick={() => loadPosts(page + 1, true)}
-              className="rounded-lg border border-white/10 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+              className="ghost-button w-full sm:w-auto"
             >
               Muat lagi
             </button>

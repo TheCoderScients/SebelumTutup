@@ -56,8 +56,8 @@ export function ReportButton({
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/80 px-4 backdrop-blur">
-          <form onSubmit={submit} className="w-full max-w-md rounded-lg border border-white/10 bg-panel p-5 shadow-glow">
+        <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-ink/80 px-3 py-6 backdrop-blur sm:px-4">
+          <form onSubmit={submit} className="surface-card w-full max-w-md p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h2 className="text-lg font-semibold text-white">Laporkan konten</h2>
@@ -78,21 +78,21 @@ export function ReportButton({
               onChange={(event) => setReason(event.target.value.slice(0, 180))}
               maxLength={180}
               rows={4}
-              className="mt-4 w-full resize-none rounded-lg border border-white/10 bg-ink px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-ember"
+              className="field mt-4 w-full resize-none text-sm focus:border-ember"
               placeholder="Contoh: menyerang personal / spam / terlalu kasar"
             />
-            <div className="mt-4 flex items-center justify-end gap-3">
+            <div className="mt-4 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-200 transition hover:bg-white/10"
+                className="ghost-button w-full sm:w-auto"
               >
                 Batal
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                className="rounded-lg bg-ember px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember/90 disabled:opacity-60"
+                className="primary-button w-full bg-ember text-white hover:bg-ember/90 sm:w-auto"
               >
                 {submitting ? 'Mengirim...' : 'Kirim report'}
               </button>
